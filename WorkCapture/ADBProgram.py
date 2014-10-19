@@ -50,7 +50,8 @@ class Wait() :
                 self.waitTime = str(WaitTime)
        
         def eval(self) :
-                return "./adb shell sleep " + self.waitTime + "\n"
+		return "adb_common.android_wait(adb_path, " + self.waitTime + ")\n"
+#                return "./adb shell sleep " + self.waitTime + "\n"
 
 class PressScreen() :
         '''Create a screen press event'''
@@ -59,14 +60,15 @@ class PressScreen() :
                 self.y = str(yPoint)
  
         def eval(self) :
-                screenString = "./adb shell sendevent /dev/input/event0 3 0 " + self.x + "\n"
-                screenString += "./adb shell sendevent /dev/input/event0 3 1 " + self.y + "\n"
-                screenString += "./adb shell sendevent /dev/input/event0 1 330 1\n"
-                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
-                screenString += "./adb shell sendevent /dev/input/event0 1 330 0\n"
-                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
+		return "adb_common.press(adb_path, " + self.x + ", " + self.y + ")\n"
+#                screenString = "./adb shell sendevent /dev/input/event0 3 0 " + self.x + "\n"
+#                screenString += "./adb shell sendevent /dev/input/event0 3 1 " + self.y + "\n"
+#                screenString += "./adb shell sendevent /dev/input/event0 1 330 1\n"
+#                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
+#                screenString += "./adb shell sendevent /dev/input/event0 1 330 0\n"
+#                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
  
-                return screenString
+#                return screenString
  
 class LongPressScreen() :
         '''Create a long screen press event'''
@@ -75,13 +77,14 @@ class LongPressScreen() :
                 self.y = str(yPoint)
  
         def eval(self) :
-                screenString = "./adb shell sendevent /dev/input/event0 3 0 " + self.x + "\n"
-                screenString += "./adb shell sendevent /dev/input/event0 3 1 " + self.y + "\n"
-                screenString += "./adb shell sendevent /dev/input/event0 1 330 1\n"
-                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
-                screenString += "./adb shell sleep 3\n"
+		return "adb_common.long_press(adb_path, " + self.x + ", " + self.y + ")\n"
+#                screenString = "./adb shell sendevent /dev/input/event0 3 0 " + self.x + "\n"
+#                screenString += "./adb shell sendevent /dev/input/event0 3 1 " + self.y + "\n"
+#                screenString += "./adb shell sendevent /dev/input/event0 1 330 1\n"
+#                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
+#                screenString += "./adb shell sleep 3\n"
  
-                return screenString
+#                return screenString
 
 class Drag() :
         '''Create a drag event'''
@@ -92,39 +95,43 @@ class Drag() :
                 self.yEnd = int(yEndPoint)
  
         def eval(self) :
+		return "adb_common.swipe(adb_path, " + str(self.xStart) + ", " + str(self.yStart) + ", " + str(self.xEnd) + ", " + str(self.yEnd) + ")\n"
                 # Figure out if the distance is 0
-                xDistance = self.xEnd - self.xStart
-                yDistance = self.yEnd - self.yStart
+#                xDistance = self.xEnd - self.xStart
+#                yDistance = self.yEnd - self.yStart
 
                 # Touch the starting point, but don't end it
-                screenString = "./adb shell sendevent /dev/input/event0 3 0 " + str(self.xStart) + "\n"
-                screenString += "./adb shell sendevent /dev/input/event0 3 1 " + str(self.yStart) + "\n"
-                screenString += "./adb shell sendevent /dev/input/event0 1 330 1\n"
-                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
+#                screenString = "./adb shell sendevent /dev/input/event0 3 0 " + str(self.xStart) + "\n"
+#                screenString += "./adb shell sendevent /dev/input/event0 3 1 " + str(self.yStart) + "\n"
+#                screenString += "./adb shell sendevent /dev/input/event0 1 330 1\n"
+#                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
 
                 # If the distance is not 0, include a drag line, otherwise, omit the action
-                if xDistance != 0 : screenString += "./adb shell sendevent /dev/input/event0 3 0 " + str(self.xEnd) + "\n"
-                if yDistance != 0 : screenString += "./adb shell sendevent /dev/input/event0 3 1 " + str(self.yEnd) + "\n"
-                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
-                screenString += "./adb shell sendevent /dev/input/event0 1 330 0\n"
-                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
+#                if xDistance != 0 : screenString += "./adb shell sendevent /dev/input/event0 3 0 " + str(self.xEnd) + "\n"
+#                if yDistance != 0 : screenString += "./adb shell sendevent /dev/input/event0 3 1 " + str(self.yEnd) + "\n"
+#                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
+#                screenString += "./adb shell sendevent /dev/input/event0 1 330 0\n"
+#                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
  
-                return screenString
+#                return screenString
  
 class Home() :
         '''Press the Home button'''
         def eval(self) :
-                return "./adb shell input keyevent 3\n"
+		return "adb_common.home(adb_path)\n"
+#                return "./adb shell input keyevent 3\n"
  
 class Menu() :
         '''Press the Menu button'''
         def eval(self) :
-                return "./adb shell input keyevent 1\n"
+		return "adb_common.menu(adb_path)\n"
+#                return "./adb shell input keyevent 1\n"
  
 class Back() :
         '''Press the Back button'''
         def eval(self) :
-                return "./adb shell input keyevent 4\n"
+		return "adb_common.back(adb_path)\n"
+#                return "./adb shell input keyevent 4\n"
  
 #-------------------------------------------------------
  
