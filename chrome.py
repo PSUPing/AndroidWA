@@ -6,7 +6,7 @@ def use_chrome(adb_path):
 	adb_common.android_wait(adb_path, "3")
 	adb_common.press(adb_path, "406", "95")
 	adb_common.android_wait(adb_path, "2")
-	adb_common.type_text_spaces(adb_path, ["nfl", "draft"])
+	adb_common.type_text_spaces(adb_path, ["nfl", "draft"], True)
 	adb_common.android_wait(adb_path, "2")
 	adb_common.press(adb_path, "492", "214")
 	adb_common.android_wait(adb_path, "2")

@@ -54,11 +54,13 @@ def type_text(adb_path, text):
 	call([adb_path + "adb", "shell", "input", "text", text])
 	call([adb_path + "adb", "shell", "input", "keyevent", "66"])
 
-def type_text_spaces(adb_path, text_arr):
+def type_text_spaces(adb_path, text_arr, eol):
 	for text in text_arr:
 		call([adb_path + "adb", "shell", "input", "text", text])
 		call([adb_path + "adb", "shell", "input", "keyevent", "62"])
-	call([adb_path + "adb", "shell", "input", "keyevent", "66"])
+
+    if eol == True:
+        call([adb_path + "adb", "shell", "input", "keyevent", "66"])
 
 def press(adb_path, x, y):
 	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "57", "1800"])
