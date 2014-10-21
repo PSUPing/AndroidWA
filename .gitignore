@@ -14,3 +14,11 @@
 .idea/vcs.xml
 
 .idea/workspace.xml
+
+*.pyc
+
+WorkCapture/parser.out
+
+WorkCapture/parsetab.py
+
+WorkCapture/testfile.input

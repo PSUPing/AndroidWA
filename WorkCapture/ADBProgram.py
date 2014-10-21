@@ -19,156 +19,111 @@
 #                               drag_stmt: DRAG TEXT TEXT TEXT TEXT
 #                               home_stmt : HOME
 #                               menu_stmt : MENU
- 
-import sys
- 
-class Launch() :
-        '''Launch an existing APK'''
-        def __init__(self, APKName) :
-                self.apkName = str(APKName)
-       
-        def eval(self) :
-                return "adb_common.start_app(adb_path, '" + self.apkName + "')\n"
-#                return "./adb shell am start -n " + self.apkName + "\n"
- 
-class TypeText() :
-        '''Convert a string into appropriate ADB commands'''
-        def __init__(self, TextString, EndOfLine) :
-                self.textString = str(TextString)
-                self.endOfLine = EndOfLine
-       
-        def eval(self) :
-                textToReturn = "type_text_spaces(adb_path, ["
 
-                text_arr = self.textString.split(' ')
+class Launch():
+    # Launch an existing APK
+    def __init__(self, apk_name):
+        self.apk_name = str(apk_name)
 
-            	for text in text_arr:
-                    textToReturn += "'" + text + "', "
+    def eval(self):
+        return "adb_common.start_app(adb_path, '" + self.apk_name + "')\n"
 
-                textToReturn = textToReturn[:-2] + "], "
-#                self.textString = self.textString.replace(" ", "\n./adb shell input keyevent 62\n./adb shell input text ")
+class TypeText():
+    # Convert a string into appropriate ADB commands
+    def __init__(self, text_string, end_of_line):
+        self.text_string = str(text_string)
+        self.end_of_line = end_of_line
 
-#                textToReturn = "./adb shell input text " + self.textString + "\n"
-                if self.endOfLine == True:
-                    textToReturn += "True)"
-                else:
-                    textToReturn += "False)\n"
+    def eval(self):
+        text_to_return = "type_text_spaces(adb_path, ["
 
-#                if self.endOfLine == True : textToReturn += "./adb shell input keyevent 66\n"
-                
-                return textToReturn 
+        text_arr = self.text_string.split(' ')
 
-class Wait() :
-        '''Introduces a wait into the script'''
-        def __init__(self, WaitTime) :
-                self.waitTime = str(WaitTime)
-       
-        def eval(self) :
-        		return "adb_common.android_wait(adb_path, " + self.waitTime + ")\n"
-#                return "./adb shell sleep " + self.waitTime + "\n"
+        for text in text_arr:
+            text_to_return += "'" + text + "', "
 
-class PressScreen() :
-        '''Create a screen press event'''
-        def __init__(self, xPoint, yPoint) :
-                self.x = str(xPoint)
-                self.y = str(yPoint)
- 
-        def eval(self) :
-		return "adb_common.press(adb_path, " + self.x + ", " + self.y + ")\n"
-#                screenString = "./adb shell sendevent /dev/input/event0 3 0 " + self.x + "\n"
-#                screenString += "./adb shell sendevent /dev/input/event0 3 1 " + self.y + "\n"
-#                screenString += "./adb shell sendevent /dev/input/event0 1 330 1\n"
-#                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
-#                screenString += "./adb shell sendevent /dev/input/event0 1 330 0\n"
-#                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
- 
-#                return screenString
- 
-class LongPressScreen() :
-        '''Create a long screen press event'''
-        def __init__(self, xPoint, yPoint) :
-                self.x = str(xPoint)
-                self.y = str(yPoint)
- 
-        def eval(self) :
-		return "adb_common.long_press(adb_path, " + self.x + ", " + self.y + ")\n"
-#                screenString = "./adb shell sendevent /dev/input/event0 3 0 " + self.x + "\n"
-#                screenString += "./adb shell sendevent /dev/input/event0 3 1 " + self.y + "\n"
-#                screenString += "./adb shell sendevent /dev/input/event0 1 330 1\n"
-#                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
-#                screenString += "./adb shell sleep 3\n"
- 
-#                return screenString
+        text_to_return = text_to_return[:-2] + "], "
 
-class Drag() :
-        '''Create a drag event'''
-        def __init__(self, xStartPoint, yStartPoint, xEndPoint, yEndPoint) :
-                self.xStart = int(xStartPoint)
-                self.yStart = int(yStartPoint)
-                self.xEnd = int(xEndPoint)
-                self.yEnd = int(yEndPoint)
- 
-        def eval(self) :
-		        return "adb_common.swipe(adb_path, " + str(self.xStart) + ", " + str(self.yStart) + ", " + str(self.xEnd) + ", " + str(self.yEnd) + ")\n"
-                # Figure out if the distance is 0
-#                xDistance = self.xEnd - self.xStart
-#                yDistance = self.yEnd - self.yStart
+        if self.end_of_line is True:
+            text_to_return += "True)\n"
+        else:
+            text_to_return += "False)\n"
 
-                # Touch the starting point, but don't end it
-#                screenString = "./adb shell sendevent /dev/input/event0 3 0 " + str(self.xStart) + "\n"
-#                screenString += "./adb shell sendevent /dev/input/event0 3 1 " + str(self.yStart) + "\n"
-#                screenString += "./adb shell sendevent /dev/input/event0 1 330 1\n"
-#                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
+        return text_to_return
 
-                # If the distance is not 0, include a drag line, otherwise, omit the action
-#                if xDistance != 0 : screenString += "./adb shell sendevent /dev/input/event0 3 0 " + str(self.xEnd) + "\n"
-#                if yDistance != 0 : screenString += "./adb shell sendevent /dev/input/event0 3 1 " + str(self.yEnd) + "\n"
-#                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
-#                screenString += "./adb shell sendevent /dev/input/event0 1 330 0\n"
-#                screenString += "./adb shell sendevent /dev/input/event0 0 0 0\n"
- 
-#                return screenString
- 
-class Home() :
-        '''Press the Home button'''
-        def eval(self) :
-		    return "adb_common.home(adb_path)\n"
-#                return "./adb shell input keyevent 3\n"
- 
-class Menu() :
-        '''Press the Menu button'''
-        def eval(self) :
-		    return "adb_common.menu(adb_path)\n"
-#                return "./adb shell input keyevent 1\n"
- 
-class Back() :
-        '''Press the Back button'''
-        def eval(self) :
-		    return "adb_common.back(adb_path)\n"
-#                return "./adb shell input keyevent 4\n"
- 
+class Wait():
+    # Introduces a wait into the script
+    def __init__(self, wait_time) :
+        self.wait_time = str(wait_time)
+
+    def eval(self) :
+        return "adb_common.android_wait(adb_path, " + self.wait_time + ")\n"
+
+class PressScreen():
+    # Create a screen press event
+    def __init__(self, x_point, y_point) :
+        self.x = str(x_point)
+        self.y = str(y_point)
+
+    def eval(self):
+        return "adb_common.press(adb_path, " + self.x + ", " + self.y + ")\n"
+
+class LongPressScreen():
+    # Create a long screen press event
+    def __init__(self, x_point, y_point):
+        self.x = str(x_point)
+        self.y = str(y_point)
+
+    def eval(self):
+        return "adb_common.long_press(adb_path, " + self.x + ", " + self.y + ")\n"
+
+class Drag():
+    # Create a drag event
+    def __init__(self, x_start_point, y_start_point, x_end_point, y_end_point) :
+        self.x_start = int(x_start_point)
+        self.y_start = int(y_start_point)
+        self.x_end = int(x_end_point)
+        self.y_end = int(y_end_point)
+
+    def eval(self):
+        return "adb_common.swipe(adb_path, " + str(self.x_start) + ", " + str(self.y_start) + ", " + str(self.x_end) + ", " + str(self.y_end) + ")\n"
+
+class Home():
+    # Press the Home button
+    def eval(self):
+        return "adb_common.home(adb_path)\n"
+
+class Menu():
+    # Press the Menu button
+    def eval(self):
+        return "adb_common.menu(adb_path)\n"
+
+class Back():
+    # Press the Back button
+    def eval(self):
+        return "adb_common.back(adb_path)\n"
+
 #-------------------------------------------------------
  
-class StmtList :
-        '''builds/stores a list of Stmts'''
+class StmtList:
+    # Builds and stores a list of Stmts
+    def __init__(self):
+        self.sl = []
+
+    def insert(self, stmt):
+        self.sl.insert(0, stmt)
+
+    def eval(self):
+        temp_string = "from subprocess import call\nimport adb_common\n\n"
+
+        for s in self.sl:
+            temp_string += s.eval()
+
+        return temp_string
        
-        def __init__(self) :
-                self.sl = []
-       
-        def insert(self, stmt) :
-                self.sl.insert( 0, stmt )
-       
-        def eval(self) :
-                tempString = "from subprocess import call\nimport adb_common\n\n"
-#                tempString = "cd /lib/android/sdk/platform-tools\n"
-                for s in self.sl :
-                        tempString += s.eval()
- 
-                return tempString
-       
-class Program :
-        def __init__(self, stmtList) :
-                self.stmtList = stmtList
-       
-        def eval(self) :
-                print self.stmtList.eval()
+class Program:
+    def __init__(self, stmt_list):
+        self.stmt_list = stmt_list
+
+    def eval(self):
+        print self.stmt_list.eval()
