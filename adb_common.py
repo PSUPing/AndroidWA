@@ -55,9 +55,9 @@ def type_text(adb_path, text):
 	call([adb_path + "adb", "shell", "input", "keyevent", "66"])
 
 def type_text_spaces(adb_path, text_arr, eol):
-	for text in text_arr:
-		call([adb_path + "adb", "shell", "input", "text", text])
-		call([adb_path + "adb", "shell", "input", "keyevent", "62"])
+    for text in text_arr:
+        call([adb_path + "adb", "shell", "input", "text", text])
+        call([adb_path + "adb", "shell", "input", "keyevent", "62"])
 
     if eol == True:
         call([adb_path + "adb", "shell", "input", "keyevent", "66"])
@@ -75,12 +75,12 @@ def long_press(adb_path, x, y):
 	android_wait(adb_path, "3")
 
 def swipe(adb_path, x_start, y_start, x_end, y_end):
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "57", "1800"])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "53", x_start])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "54", y_start])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "53", x_end])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "54", y_end])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "57", "4294967295"])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
+    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "57", "1800"])
+    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "53", x_start])
+    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "54", y_start])
+    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
+    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "53", x_end])
+    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "54", y_end])
+    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
+    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "57", "4294967295"])
+    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
