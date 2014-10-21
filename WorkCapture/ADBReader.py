@@ -32,8 +32,10 @@ touchEnd = False
 for element in array:
     if str(element[:18]) == "/dev/input/event0:":
         parts = element.split()
+
         if (int(parts[1], 16) == 3) and (int(parts[2], 16) == deviceX):
             lastX = int(parts[3], 16)
+
         counter += 1
 
         if startX == 0:
