@@ -70,14 +70,14 @@ for element in array:
                 lastX = 0
                 lastY = 0
 
-        if (int(parts[1], 16) == 1) and (int(parts[2], 16) == 158):         # Back button
-            print "BACK"
+        if (int(parts[1], 16) == 1) and (int(parts[2], 16) == 158) and (int(parts[3], 16) == 1):    # Back button
+            print "BACK;"
 
-        if (int(parts[1], 16) == 1) and (int(parts[2], 16) == 139):         # Menu button
-            print "MENU"
+        if (int(parts[1], 16) == 1) and (int(parts[2], 16) == 139) and (int(parts[3], 16) == 1):    # Menu button
+            print "MENU;"
     elif str(element[:18]) == "/dev/input/event1:":
-        if (int(parts[1], 16) == 1) and (int(parts[3], 16) == 1):           # Power
-            print "POWER"
+        if (int(parts[1], 16) == 1) and (int(parts[2], 16) == 116) and (int(parts[3], 16) == 1):    # Power
+            print "POWER;"
     elif str(element[:18]) == "/dev/input/event7:":
-        if (int(parts[1], 16) == 1) and (int(parts[2], 16) == 172) and (int(parts[3], 16) == 1):         # Home button
-            print "HOME"
+        if (int(parts[1], 16) == 1) and (int(parts[2], 16) == 172) and (int(parts[3], 16) == 1):    # Home button
+            print "HOME;"
