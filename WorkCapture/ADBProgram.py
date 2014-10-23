@@ -86,7 +86,7 @@ class Drag():
         self.y_end = int(y_end_point)
 
     def eval(self):
-        return "adb_common.swipe(adb_path, " + str(self.x_start) + ", " + str(self.y_start) + ", " + str(self.x_end) + ", " + str(self.y_end) + ")\n"
+        return "adb_common.swipe(adb_path, \"" + str(self.x_start) + "\", \"" + str(self.y_start) + "\", \"" + str(self.x_end) + "\", \"" + str(self.y_end) + "\")\n"
 
 class Home():
     # Press the Home button
