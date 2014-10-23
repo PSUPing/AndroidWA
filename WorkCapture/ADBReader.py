@@ -30,8 +30,8 @@ touchStart = False
 touchEnd = False
 
 for element in array:
+    parts = element.split()
     if str(element[:18]) == "/dev/input/event0:":
-        parts = element.split()
 
         # This keeps track of what "event0"s are occurring to see if it's a PRESS or DRAG
         if (int(parts[1], 16) == 3) and (int(parts[2], 16) == deviceX):
