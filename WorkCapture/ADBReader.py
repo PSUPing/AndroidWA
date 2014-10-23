@@ -35,18 +35,14 @@ for element in array:
 
         if (int(parts[1], 16) == 3) and (int(parts[2], 16) == deviceX):
             lastX = int(parts[3], 16)
-
-        counter += 1
-
-        if startX == 0:
-            startX = lastX
+            counter += 1
+            if startX == 0:
+                startX = lastX
         elif (int(parts[1], 16) == 3) and (int(parts[2], 16) == deviceY):
             lastY = int(parts[3], 16)
-
-        counter += 1
-
-        if startY == 0:
-            startY = lastY
+            counter += 1
+            if startY == 0:
+                startY = lastY
         elif (int(parts[1], 16) == startStopPrefix) and (int(parts[2], 16) == startStop) and touchStart is False:
             touchStart = True
         elif (int(parts[1], 16) == startStopPrefix) and (int(parts[2], 16) == startStop) and touchStart is True:
@@ -56,17 +52,17 @@ for element in array:
                 touchStart = False
                 touchEnd = False
 
-        # Print result
-        if emulator:
-            if startX == lastX and startY == lastY:
-                print "PRESS " + str(lastX) + " " + str(lastY) + ";"
-            elif startX != lastX or startY != lastY :
-                print "DRAG " + str(startX) + " " + str(startY) + " " + str(lastX) + " " + str(lastY) + ";"
-        else:
-            if counter <= 10:
-                print "PRESS " + str(lastX) + " " + str(lastY) + ";"
-            elif startX != lastX or startY != lastY:
-                print "DRAG " + str(startX) + " " + str(startY) + " " + str(lastX) + " " + str(lastY) + ";"
+                # Print result
+                if emulator:
+                    if startX == lastX and startY == lastY:
+                        print "PRESS " + str(lastX) + " " + str(lastY) + ";"
+                    elif startX != lastX or startY != lastY:
+                        print "DRAG " + str(startX) + " " + str(startY) + " " + str(lastX) + " " + str(lastY) + ";"
+                else:
+                    if counter <= 10:
+                        print "PRESS " + str(lastX) + " " + str(lastY) + ";"
+                    elif startX != lastX or startY != lastY:
+                        print "DRAG " + str(startX) + " " + str(startY) + " " + str(lastX) + " " + str(lastY) + ";"
 
                 startX = 0
                 startY = 0
