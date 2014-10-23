@@ -33,6 +33,7 @@ for element in array:
     if str(element[:18]) == "/dev/input/event0:":
         parts = element.split()
 
+        # This keeps track of what "event0"s are occurring to see if it's a PRESS or DRAG
         if (int(parts[1], 16) == 3) and (int(parts[2], 16) == deviceX):
             lastX = int(parts[3], 16)
             counter += 1
@@ -68,3 +69,15 @@ for element in array:
                 startY = 0
                 lastX = 0
                 lastY = 0
+
+        if (int(parts[1], 16) == 1) and (int(parts[2], 16) == 158):         # Back button
+            print "BACK"
+
+        if (int(parts[1], 16) == 1) and (int(parts[2], 16) == 139):         # Menu button
+            print "MENU"
+    elif str(element[:18]) == "/dev/input/event1:":
+        if (int(parts[1], 16) == 1) and (int(parts[3], 16) == 1):           # Power
+            print "POWER"
+    elif str(element[:18]) == "/dev/input/event7:":
+        if (int(parts[1], 16) == 1) and (int(parts[2], 16) == 172) and (int(parts[3], 16) == 1):         # Home button
+            print "HOME"

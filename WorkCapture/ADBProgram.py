@@ -103,6 +103,11 @@ class Back():
     def eval(self):
         return "adb_common.back(adb_path)\n"
 
+class Power():
+    # Press the Power button
+    def eval(self):
+        return "adb_common.power(adb_path)\n"
+
 #-------------------------------------------------------
  
 class StmtList:

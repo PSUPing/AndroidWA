@@ -14,6 +14,7 @@ tokens = (
     'HOME',
     'MENU',
     'BACK',
+    'POWER',
     'WAIT',
     'DRAG',
     'TYPELINE',
@@ -25,6 +26,7 @@ reserved = {
     'HOME'          : 'HOME',
     'MENU'          : 'MENU',
     'BACK'          : 'BACK',
+    'POWER'         : 'POWER',
     'WAIT'          : 'WAIT',
     'DRAG'          : 'DRAG',
     'LAUNCH'        : 'LAUNCH',
@@ -102,7 +104,8 @@ def p_stmt( p ) :
         | menu_stmt
         | back_stmt
         | wait_stmt
-        | drag_stmt'''
+        | drag_stmt
+        | power_stmt'''
     p[0] = p[1]
  
 def p_text_list(p):
@@ -143,7 +146,11 @@ def p_home_stmt(p):
 def p_menu_stmt(p):
     'menu_stmt : MENU'
     p[0] = Menu()
- 
+
+def p_power_stmt(p):
+    'power_stmt : POWER'
+    p[0] = Power()
+
 def p_back_stmt(p):
     'back_stmt : BACK'
     p[0] = Back()
