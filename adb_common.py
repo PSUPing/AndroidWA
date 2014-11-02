@@ -1,86 +1,114 @@
 from subprocess import call
+import vars
 
-def power(adb_path):
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event1", "1", "116", "1"])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event1", "0", "0", "0"])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event1", "1", "116", "0"])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event1", "0", "0", "0"])
 
-def apk_inst(adb_path, apk_name):
-	call([adb_path + "adb", "install", apk_name])
+def power():
+	call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event1", "1", "116", "1"])
+	call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event1", "0", "0", "0"])
+	call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event1", "1", "116", "0"])
+	call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event1", "0", "0", "0"])
 
-def apk_uninst(adb_path, pkg_name):
-	call([adb_path + "adb", "shell", "pm", "uninstall", pkg_name])
 
-def unlock(adb_path):
-	swipe(adb_path, "259", "665", "533", "702")
+def apk_inst(apk_name):
+	call([vars.adb_path + "adb", "install", apk_name])
 
-def android_wait(adb_path, time):
-	call([adb_path + "adb", "shell", "sleep", time])
 
-def start_app(adb_path, name):
-	call([adb_path + "adb", "shell", "am", "start", "-n", name])
+def apk_inst_chk(apk_var_name):
+    if vars.apks[apk_var_name]['installed'] is False:
+        apk_inst(vars.apks[apk_var_name]['path'])
+        vars.apks[apk_var_name]['installed'] = True
 
-def home(adb_path): 
-	call([adb_path + "adb", "shell", "input", "keyevent", "3"])
 
-def menu(adb_path): 
-	call([adb_path + "adb", "shell", "input", "keyevent", "1"])
+def apk_uninst(apk_var_name, pkg_name):
+    if vars.apks[apk_var_name]['installed'] is True:
+    	call([vars.adb_path + "adb", "shell", "pm", "uninstall", pkg_name])
 
-def back(adb_path):
-	call([adb_path + "adb", "shell", "input", "keyevent", "4"])
 
-def task_mgr(adb_path):
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event7", "1", "172", "1"])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event7", "0", "0", "0"])
-	android_wait(adb_path, "1")
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event7", "1", "172", "0"])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event7", "0", "0", "0"])
+def unlock():
+	swipe(vars.adb_path, "259", "665", "533", "702")
 
-def close_first_app(adb_path):
-	task_mgr(adb_path)
-	swipe(adb_path, "503", "879", "286", "878")
-	back(adb_path)
 
-def close_all(adb_path):
-	task_mgr(adb_path)
-	press(adb_path, "502", "983")
-	home(adb_path)
+def android_wait(time):
+	call([vars.adb_path + "adb", "shell", "sleep", time])
 
-def scroll(adb_path):
-	swipe(adb_path, "248", "837", "255", "396")
 
-def type_text(adb_path, text):
-	call([adb_path + "adb", "shell", "input", "text", text])
-	call([adb_path + "adb", "shell", "input", "keyevent", "66"])
+def start_app(name):
+	call([vars.adb_path + "adb", "shell", "am", "start", "-n", name])
 
-def type_text_spaces(adb_path, text_arr, eol):
+
+def home():
+	call([vars.adb_path + "adb", "shell", "input", "keyevent", "3"])
+
+
+def menu():
+    call([vars.adb_path + "adb", "shell", "input", "keyevent", "1"])
+
+
+def back():
+    call([vars.adb_path + "adb", "shell", "input", "keyevent", "4"])
+
+
+def task_mgr():
+	call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event7", "1", "172", "1"])
+	call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event7", "0", "0", "0"])
+	android_wait("1")
+	call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event7", "1", "172", "0"])
+	call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event7", "0", "0", "0"])
+
+
+def close_first_app():
+	task_mgr()
+	swipe("503", "879", "286", "878")
+	back()
+
+
+def close_all():
+	task_mgr()
+	press("502", "983")
+	home()
+
+
+def scroll():
+	swipe("248", "837", "255", "396")
+
+
+def type_text(text, eol=False):
+    call([vars.adb_path + "adb", "shell", "input", "text", text])
+
+    if eol is True:
+    	call([vars.adb_path + "adb", "shell", "input", "keyevent", "66"])
+
+
+def type_text_spaces(text_arr, eol):
     for text in text_arr:
-        call([adb_path + "adb", "shell", "input", "text", text])
-        call([adb_path + "adb", "shell", "input", "keyevent", "62"])
+        call([vars.adb_path + "adb", "shell", "input", "text", text])
+        call([vars.adb_path + "adb", "shell", "input", "keyevent", "62"])
 
-    if eol == True:
-        call([adb_path + "adb", "shell", "input", "keyevent", "66"])
+    if eol is True:
+        call([vars.adb_path + "adb", "shell", "input", "keyevent", "66"])
 
-def press(adb_path, x, y):
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "57", "1800"])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "53", x])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "54", y])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "57", "4294967295"])
-	call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
 
-def long_press(adb_path, x, y):
-	press(adb_path, x, y)
-	android_wait(adb_path, "3")
+def press(x, y):
+	call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "57", "1800"])
+	call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "53", x])
+	call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "54", y])
+	call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
+	call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "57", "4294967295"])
+	call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
 
-def swipe(adb_path, x_start, y_start, x_end, y_end):
-    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "57", "1800"])
-    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "53", x_start])
-    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "54", y_start])
-    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
-    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "53", x_end])
-    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "54", y_end])
-    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
-    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "57", "4294967295"])
-    call([adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
+
+def long_press(x, y):
+	press(x, y)
+	android_wait("3")
+
+
+def swipe(x_start, y_start, x_end, y_end):
+    call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "57", "1800"])
+    call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "53", x_start])
+    call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "54", y_start])
+    call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
+    call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "53", x_end])
+    call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "54", y_end])
+    call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])
+    call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "3", "57", "4294967295"])
+    call([vars.adb_path + "adb", "shell", "sendevent", "/dev/input/event0", "0", "0", "0"])

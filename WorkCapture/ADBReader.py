@@ -4,7 +4,7 @@ adbEvents = open(sys.argv[1], "r")
 array = []
 
 for line in adbEvents:
-        array.append(line)
+    array.append(line)
 
 deviceX = 53
 deviceY = 54

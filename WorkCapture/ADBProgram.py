@@ -20,13 +20,15 @@
 #                               home_stmt : HOME
 #                               menu_stmt : MENU
 
+
 class Launch():
     # Launch an existing APK
     def __init__(self, apk_name):
         self.apk_name = str(apk_name)
 
     def eval(self):
-        return "adb_common.start_app(adb_path, '" + self.apk_name + "')\n"
+        return "adb_common.start_app('" + self.apk_name + "')\n"
+
 
 class TypeText():
     # Convert a string into appropriate ADB commands
@@ -35,7 +37,7 @@ class TypeText():
         self.end_of_line = end_of_line
 
     def eval(self):
-        text_to_return = "type_text_spaces(adb_path, ["
+        text_to_return = "type_text_spaces(["
 
         text_arr = self.text_string.split(' ')
 
@@ -51,13 +53,15 @@ class TypeText():
 
         return text_to_return
 
+
 class Wait():
     # Introduces a wait into the script
     def __init__(self, wait_time) :
         self.wait_time = str(wait_time)
 
     def eval(self) :
-        return "adb_common.android_wait(adb_path, " + self.wait_time + ")\n"
+        return "adb_common.android_wait(" + self.wait_time + ")\n"
+
 
 class PressScreen():
     # Create a screen press event
@@ -66,7 +70,8 @@ class PressScreen():
         self.y = str(y_point)
 
     def eval(self):
-        return "adb_common.press(adb_path, " + self.x + ", " + self.y + ")\n"
+        return "adb_common.press(" + self.x + ", " + self.y + ")\n"
+
 
 class LongPressScreen():
     # Create a long screen press event
@@ -75,7 +80,8 @@ class LongPressScreen():
         self.y = str(y_point)
 
     def eval(self):
-        return "adb_common.long_press(adb_path, " + self.x + ", " + self.y + ")\n"
+        return "adb_common.long_press(" + self.x + ", " + self.y + ")\n"
+
 
 class Drag():
     # Create a drag event
@@ -86,30 +92,35 @@ class Drag():
         self.y_end = int(y_end_point)
 
     def eval(self):
-        return "adb_common.swipe(adb_path, \"" + str(self.x_start) + "\", \"" + str(self.y_start) + "\", \"" + str(self.x_end) + "\", \"" + str(self.y_end) + "\")\n"
+        return "adb_common.swipe(\"" + str(self.x_start) + "\", \"" + str(self.y_start) + "\", \"" + str(self.x_end) + "\", \"" + str(self.y_end) + "\")\n"
+
 
 class Home():
     # Press the Home button
     def eval(self):
-        return "adb_common.home(adb_path)\n"
+        return "adb_common.home()\n"
+
 
 class Menu():
     # Press the Menu button
     def eval(self):
-        return "adb_common.menu(adb_path)\n"
+        return "adb_common.menu()\n"
+
 
 class Back():
     # Press the Back button
     def eval(self):
-        return "adb_common.back(adb_path)\n"
+        return "adb_common.back()\n"
+
 
 class Power():
     # Press the Power button
     def eval(self):
-        return "adb_common.power(adb_path)\n"
+        return "adb_common.power()\n"
 
 #-------------------------------------------------------
- 
+
+
 class StmtList:
     # Builds and stores a list of Stmts
     def __init__(self):
@@ -119,13 +130,14 @@ class StmtList:
         self.sl.insert(0, stmt)
 
     def eval(self):
-        temp_string = "from subprocess import call\nimport adb_common\n\n"
+        temp_string = "import adb_common\n\nimport apks\n\n\n"
 
         for s in self.sl:
             temp_string += s.eval()
 
         return temp_string
-       
+
+
 class Program:
     def __init__(self, stmt_list):
         self.stmt_list = stmt_list
