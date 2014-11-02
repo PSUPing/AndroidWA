@@ -22,3 +22,7 @@ WorkCapture/parser.out
 WorkCapture/parsetab.py
 
 WorkCapture/testfile.input
+
+*.pyc
+
+*.pyc
