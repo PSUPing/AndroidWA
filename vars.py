@@ -8,7 +8,7 @@ apks = {
 
     # Tetris
     'Tetris': {
-        'path': '~/android_apps/games/com.appmobilegame.tetris-1.apk',
+        'path': '/home/drexelping/android_apps/games/com.appmobilegame.tetris-1.apk',
         'package': 'com.appmobilegame.tetris',
         'launch': 'com.peafone.tetrominos.Main',
         'installed': False,
@@ -17,18 +17,18 @@ apks = {
 
     # Plants vs Zombies
     'PvZ': {
-        'path': '~/android_apps/games/com.ea.game.pvz2_na-1.apk',
-#        'package': 'com.ea.game.pvz2_na',
-#        'launch': 'com.ea.game.pvz2_na',
+        'path': '/home/drexelping/android_apps/games/com.ea.game.pvz2_na-1.apk',
+        'package': 'com.ea.game.pvz2_na',
+        'launch': 'com.popcap.PvZ2.PvZ2GameActivity',
         'installed': False,
         'uninstall': True
     },
 
     # Candy Crush
     'CC': {
-#        'path': '~/android_apps/games/com.ea.game.pvz2_na-1.apk',
-#        'package': 'com.ea.game.pvz2_na',
-#        'launch': 'com.ea.game.pvz2_na',
+        'path': '/home/drexelping/android_apps/games/com.king.candycrushsaga-1.apk',
+        'package': 'com.king.candycrushsaga',
+        'launch': 'com.king.candycrushsaga.CandyCrushSagaActivity',
         'installed': False,
         'uninstall': True
     },
@@ -37,7 +37,7 @@ apks = {
 
     # Facebook
     'facebook': {
-#        'path': '~/android_apps/social/com.appmobilegame.tetris-1.apk',
+        'path': '/home/drexelping/android_apps/social/com.facebook.katana-1.apk',
         'package': 'com.facebook.katana',
         'launch': 'com.facebook.katana.LoginActivity',
         'installed': True,
@@ -46,9 +46,40 @@ apks = {
 
     # LinkedIn
     'LinkedIn': {
-#        'path': '~/android_apps/games/com.appmobilegame.tetris-1.apk',
-#        'package': 'com.appmobilegame.tetris',
-#        'launch': 'com.peafone.tetrominos.Main',
+        'path': '/home/drexelping/android_apps/social/com.linkedin.android-1.apk',
+        'package': 'com.linkedin.android',
+        'launch': 'com.linkedin.android.authenticator.LaunchActivity',
+        'installed': True,
+        'uninstall': False
+    },
+
+# --------------------------- Entertainment --------------------------
+
+    # Netflix
+    'Netflix': {
+        'path': '/home/drexelping/android_apps/entertainment/com.netflix.mediaclient-1.apk',
+        'package': 'com.netflix.mediaclient',
+        'launch': 'com.netflix.mediaclient.LaunchActivity',
+        'installed': True,
+        'uninstall': False
+    },
+
+    # Zillow
+    'Zillow': {
+        'path': '/home/drexelping/android_apps/realestate/com.zillow.android.zillowmap-1.apk',
+        'package': 'com.zillow.android.zillowmap',
+        'launch': 'com.zillow.android.zillowmap.ui.apphomescreen.HomeScreenActivity',
+        'installed': True,
+        'uninstall': False
+    },
+
+# --------------------------- Communication --------------------------
+
+    # Skype
+    'Skype': {
+        'path': '/home/drexelping/android_apps/communication/com.skype.raider-1.apk',
+        'package': 'com.skype.raider',
+        'launch': 'com.skype.raider.LaunchActivity',
         'installed': True,
         'uninstall': False
     },
@@ -57,10 +88,11 @@ apks = {
 
     # Stat Collector
     'StatColl': {
-#        'path': '~/android_apps/social/com.appmobilegame.tetris-1.apk',
+        'path': '/home/drexelping/android_apps/examiner/edu.drexel.StatCollector-3.apk',
         'package': 'edu.drexel.StatCollector',
         'launch': 'edu.drexel.StatCollector.StatViewActivity',
-        'installed': True
+        'installed': True,
+        'uninstall': False
     },
 
 # ------------------------ Pre-installed apps ------------------------

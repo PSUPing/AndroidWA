@@ -19,13 +19,13 @@ def apk_inst_chk(apk_var_name):
         vars.apks[apk_var_name]['installed'] = True
 
 
-def apk_uninst(apk_var_name, pkg_name):
+def apk_uninst(apk_var_name):
     if vars.apks[apk_var_name]['installed'] is True:
-    	call([vars.adb_path + "adb", "shell", "pm", "uninstall", pkg_name])
+    	call([vars.adb_path + "adb", "shell", "pm", "uninstall", vars.apks[apk_var_name]['package']])
 
 
 def unlock():
-	swipe(vars.adb_path, "259", "665", "533", "702")
+	swipe("259", "665", "533", "702")
 
 
 def android_wait(time):

@@ -60,7 +60,7 @@ class Wait():
         self.wait_time = str(wait_time)
 
     def eval(self) :
-        return "adb_common.android_wait(" + self.wait_time + ")\n"
+        return "adb_common.android_wait(\"" + self.wait_time + "\")\n"
 
 
 class PressScreen():
@@ -70,7 +70,7 @@ class PressScreen():
         self.y = str(y_point)
 
     def eval(self):
-        return "adb_common.press(" + self.x + ", " + self.y + ")\n"
+        return "adb_common.press(\"" + self.x + "\", \"" + self.y + "\")\n"
 
 
 class LongPressScreen():
@@ -80,7 +80,7 @@ class LongPressScreen():
         self.y = str(y_point)
 
     def eval(self):
-        return "adb_common.long_press(" + self.x + ", " + self.y + ")\n"
+        return "adb_common.long_press(\"" + self.x + "\", \"" + self.y + "\")\n"
 
 
 class Drag():
@@ -130,7 +130,7 @@ class StmtList:
         self.sl.insert(0, stmt)
 
     def eval(self):
-        temp_string = "import adb_common\n\nimport apks\n\n\n"
+        temp_string = "import adb_common\nimport vars\n\n\n"
 
         for s in self.sl:
             temp_string += s.eval()

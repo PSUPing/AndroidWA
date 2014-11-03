@@ -4,7 +4,7 @@ import sys
 # Path to ADB
 # Linux
 adb_path = "/lib/android/sdk/platform-tools/"
-aapt_path = "/lib/android/sdk/build-tools/android-4.4W"
+aapt_path = "/lib/android/sdk/build-tools/android-4.4W/"
 # Mac
 #adb_path = "/Library/Android/sdk/platform-tools/"
 #aapt_path = "/Library/Android/sdk/build-tools/19.0.1/"
@@ -19,9 +19,9 @@ pkg_name = ''
 act_name = ''
 
 # Get APK Name
-f = open('packages.list', 'w')
-call([adb_path + "adb", "shell", "pm", "list", "packages", "-f"], stdout=f)
-f.close()
+p = open('packages.list', 'w')
+call([adb_path + "adb", "shell", "pm", "list", "packages", "-f"], stdout=p)
+p.close()
 
 adb_events = open('packages.list', 'r')
 
@@ -40,11 +40,11 @@ apk_temp = apk_file_name.split('/')
 apk_name = apk_temp[len(apk_temp)-1]
 
 # Get Badging Info
-f = open(name + '.badging', 'w')
-call([aapt_path + "aapt", "dump", "badging", apk_name], stdout=f)
-f.close()
+b = open(name + ".badging", "w")
+call([aapt_path + "aapt", "dump", "badging", apk_name], stdout=b)
+b.close()
 
-aapt_badging = open(name + ".badging", 'r')
+aapt_badging = open(name + ".badging", "r")
 
 for line in aapt_badging:
     if "launchable-activity" in line.lower():
