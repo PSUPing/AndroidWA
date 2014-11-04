@@ -88,7 +88,7 @@ apks = {
 
     # Stat Collector
     'StatColl': {
-        'path': '/home/drexelping/android_apps/examiner/edu.drexel.StatCollector-3.apk',
+        'path': '/home/drexelping/android_apps/examiner/edu.drexel.StatCollector.apk',
         'package': 'edu.drexel.StatCollector',
         'launch': 'edu.drexel.StatCollector.StatViewActivity',
         'installed': True,
